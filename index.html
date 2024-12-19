@@ -196,7 +196,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card product h-100">
-                            <img class="rounded m-1 object-fit-contain" src=""
+                            <img class="rounded m-1 object-fit-contain" src="./img/PXL_20241219_100427097.NIGHT.jpg"
                                 alt="Products">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Products</h5>
@@ -224,27 +224,58 @@
     <section id="contact" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center mb-4">Contact Us</h2>
-            <form>
+            <form id="contactForm">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
                 </div>
                 <div class="mb-3">
                     <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
+                    <textarea class="form-control" id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </section>
-
+    
     <footer class="text-center p-3 bg-light">
         <p class="m-0">&copy; 2024 DMS Store. All Rights Reserved. <br/><small>Made with ❤️ by Muhammad Tayyab</small></p>
     </footer>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+    
+            const formData = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                message: document.getElementById("message").value,
+            };
+    
+            try {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbzQA8ySLHmDEsGboS0_Cp43lrEhPW3d9Nq3o10DiTb89u_h7AfDj2QXCfFIehL5DYlMAg/exec", { // Replace with your Google Apps Script URL
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+    
+                if (response.ok) {
+                    alert("Message sent successfully!");
+                } else {
+                    alert("Failed to send message. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error sending message.");
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
